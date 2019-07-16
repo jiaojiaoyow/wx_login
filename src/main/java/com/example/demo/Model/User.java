@@ -1,25 +1,63 @@
 package com.example.demo.Model;
 
-import java.io.Serializable;
+public class User {
+    private String uid;
 
-public class User implements Serializable {
-    private String username;
+    private String openid;
 
-    private String password;
+    private String nickname;
 
-    public String getUsername() {
-        return username;
+    private String token;
+
+    private String avatarurl;
+
+    private Byte gender;
+
+    public String getUid() {
+        return uid;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    public String getAvatarurl() {
+        return avatarurl;
+    }
+
+    public void setAvatarurl(String avatarurl) {
+        this.avatarurl = avatarurl == null ? null : avatarurl.trim();
+    }
+
+    public Byte getGender() {
+        return gender;
+    }
+
+    public void setGender(Byte gender) {
+        this.gender = gender;
     }
 }

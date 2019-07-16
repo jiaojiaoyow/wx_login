@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 
 @Service("UserService")
@@ -18,27 +21,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private RedisTemplate<Object,Object> stringRedisTemplate;
+
+
     @Override
-    //value指定缓存的名字,此注解在已有相同key的情况下，会直接调用缓存
-    @Cacheable(value = "user")
-    public User selectByPrimaryKey(String username) {
-        User myuser=this.userMapper.selectByPrimaryKey(username);
-        System.out.println(myuser);
-        return myuser;
+    public User insertSelective(User record) {
+        int flag=this.userMapper.insertSelective(record);
+        if (flag==0){
+            return null;
+        }
+        //插入成功就放入缓存
+        stringRedisTemplate.opsForValue().set(record.getToken(),record);
+        //这里是设置键的有效日期,不设置就是永久的token
+//        stringRedisTemplate.expire(record.getToken(), 123L, TimeUnit.SECONDS);
+        return record;
     }
 
-
-    //由于是更新同一个键值对，注意返回的需要跟查询同样为User对象，不要像平时一样返回int对象,可以使用result，也可以直接使用参数，eg：record.username
     @Override
-    @CachePut(value = "user", key="#result.username")
-    public User updateByPrimaryKeySelective(User record) {
-        this.userMapper.updateByPrimaryKeySelective(record);
-        return this.userMapper.selectByPrimaryKey(record.getUsername());
-    }
 
-    @Override
-    public int deleteByPrimaryKey(String username) {
-        return this.userMapper.deleteByPrimaryKey(username);
+    public String selectByToken(String token) {
+        return this.userMapper.selectByToken(token);
     }
 
 

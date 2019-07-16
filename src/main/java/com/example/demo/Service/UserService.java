@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service("UserService")
 public interface UserService {
 
-    public User selectByPrimaryKey(String username) ;
 
-    User updateByPrimaryKeySelective(User record);
 
-    int deleteByPrimaryKey(String username);
+    User insertSelective(User record);
+
+    String selectByToken(String token);
 
 }

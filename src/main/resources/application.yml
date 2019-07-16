@@ -5,7 +5,7 @@ mybatis:
     classpath:mapping/*.xml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://localhost:3306/wxtest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
     password: root
     driver: com.mysql.cj.jdbc.Driver
@@ -20,6 +20,9 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: -1ms
-    timeout:
+
+wechat:
+  appid: wx207bf36714907ae2
+  secret: 7aaa17bd243ecc39cc14d4984312e009
 
 
