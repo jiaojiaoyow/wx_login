@@ -22,7 +22,7 @@ spring:
         max-wait: -1ms
 
 wechat:
-  appid: wx207bf36714907ae2
-  secret: 7aaa17bd243ecc39cc14d4984312e009
+  appid: 
+  secret: 
 
 
